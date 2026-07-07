@@ -12,7 +12,7 @@ Aplicativo Android (MIT App Inventor) + firmware ESP32 para controle de carrinho
 ## Estrutura
 
 ```
-MEPER/
+bluetooth/
   app/
     MEPER.aia              # Importar no MIT App Inventor
     build_aia.py           # Gera .aia a partir dos fontes

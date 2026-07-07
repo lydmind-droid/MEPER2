@@ -1,9 +1,75 @@
+# PlatformIO
 .pio/
 .pioenvs/
 .piolibdeps/
+
+# IDE
 .vscode/
 .idea/
+
+# Python
 __pycache__/
 *.pyc
+
+# OS
 .DS_Store
 Thumbs.db
+
+# C/C++ compiled objects
+*.d
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Linker / Debugger
+*.ilk
+*.pdb
+
+# Dynamic libraries
+*.so
+*.dylib
+*.dll
+*.so.*
+
+# Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Build directories
+build/
+Build/
+build-*/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+install_manifest.txt
+compile_commands.json
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+*.swp
+
+# vcpkg
+vcpkg_installed/
+
+# Debug / test
+*.dwo
+Testing/
+.cache/
