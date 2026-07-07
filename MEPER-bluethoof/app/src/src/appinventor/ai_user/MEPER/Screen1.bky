@@ -1,15 +1,12 @@
 <xml xmlns="http://www.w3.org/1999/xhtml">
+  <!-- BtnVector Click: save "vector" and open ControlScreen -->
   <block type="component_event" x="0" y="0">
     <mutation component_type="Button" instance_name="BtnVector" event_name="Click"></mutation>
     <statement name="DO">
       <block type="component_method" inline="false">
         <mutation component_type="TinyDB" method_name="StoreValue" instance_name="TinyDB1" is_generic="false"></mutation>
-        <value name="ARG0">
-          <block type="text"><field name="TEXT">carrinho</field></block>
-        </value>
-        <value name="ARG1">
-          <block type="text"><field name="TEXT">vector</field></block>
-        </value>
+        <value name="ARG0"><block type="text"><field name="TEXT">carrinho</field></block></value>
+        <value name="ARG1"><block type="text"><field name="TEXT">vector</field></block></value>
         <next>
           <block type="controls_openAnotherScreen">
             <value name="SCREEN">
@@ -20,17 +17,15 @@
       </block>
     </statement>
   </block>
+
+  <!-- BtnSisyphus Click: save "sisyphus" and open ControlScreen -->
   <block type="component_event" x="0" y="200">
     <mutation component_type="Button" instance_name="BtnSisyphus" event_name="Click"></mutation>
     <statement name="DO">
       <block type="component_method" inline="false">
         <mutation component_type="TinyDB" method_name="StoreValue" instance_name="TinyDB1" is_generic="false"></mutation>
-        <value name="ARG0">
-          <block type="text"><field name="TEXT">carrinho</field></block>
-        </value>
-        <value name="ARG1">
-          <block type="text"><field name="TEXT">sisyphus</field></block>
-        </value>
+        <value name="ARG0"><block type="text"><field name="TEXT">carrinho</field></block></value>
+        <value name="ARG1"><block type="text"><field name="TEXT">sisyphus</field></block></value>
         <next>
           <block type="controls_openAnotherScreen">
             <value name="SCREEN">

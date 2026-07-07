@@ -11,9 +11,6 @@
 .DS_Store
 Thumbs.db
 
-# Build
-app/MEPER.aia
-
 # Python
 __pycache__/
 *.pyc
