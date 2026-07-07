@@ -1,0 +1,680 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <!-- Global variables -->
+  <block type="global_declaration" x="0" y="0">
+    <field name="NAME">tipoCarrinho</field>
+    <value name="VALUE"><block type="text"><field name="TEXT">vector</field></block></value>
+  </block>
+  <block type="global_declaration" x="0" y="50">
+    <field name="NAME">ultimaDirecao</field>
+    <value name="VALUE"><block type="text"><field name="TEXT">stop</field></block></value>
+  </block>
+  <block type="global_declaration" x="0" y="100">
+    <field name="NAME">centerX</field>
+    <value name="VALUE"><block type="math_number"><field name="NUM">115</field></block></value>
+  </block>
+  <block type="global_declaration" x="0" y="150">
+    <field name="NAME">centerY</field>
+    <value name="VALUE"><block type="math_number"><field name="NUM">115</field></block></value>
+  </block>
+
+  <!-- Screen Initialize -->
+  <block type="component_event" x="300" y="0">
+    <mutation component_type="Form" instance_name="ControlScreen" event_name="Initialize"></mutation>
+    <statement name="DO">
+      <block type="lexical_variable_set">
+        <field name="VAR">global tipoCarrinho</field>
+        <value name="VALUE">
+          <block type="component_method" inline="false">
+            <mutation component_type="TinyDB" method_name="GetValue" instance_name="TinyDB1" is_generic="false"></mutation>
+            <value name="ARG0"><block type="text"><field name="TEXT">carrinho</field></block></value>
+            <value name="ARG1"><block type="text"><field name="TEXT">vector</field></block></value>
+          </block>
+        </value>
+        <next>
+          <block type="controls_if" inline="false">
+            <mutation elseif="0" else="1"></mutation>
+            <value name="IF0">
+              <block type="logic_compare">
+                <field name="OP">EQ</field>
+                <value name="A"><block type="lexical_variable_get"><field name="VAR">global tipoCarrinho</field></block></value>
+                <value name="B"><block type="text"><field name="TEXT">vector</field></block></value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="component_set_property">
+                <mutation component_type="Label" property_name="Text" instance_name="LabelTitulo" is_generic="false"></mutation>
+                <value name="VALUE"><block type="text"><field name="TEXT">VECTOR V1</field></block></value>
+                <next>
+                  <block type="component_set_property">
+                    <mutation component_type="Label" property_name="Text" instance_name="LabelTrimOrTurn" is_generic="false"></mutation>
+                    <value name="VALUE"><block type="text"><field name="TEXT">TRIM: 0</field></block></value>
+                    <next>
+                      <block type="component_set_property">
+                        <mutation component_type="Slider" property_name="MinValue" instance_name="SliderTrimOrTurn" is_generic="false"></mutation>
+                        <value name="VALUE"><block type="math_number"><field name="NUM">-50</field></block></value>
+                        <next>
+                          <block type="component_set_property">
+                            <mutation component_type="Slider" property_name="MaxValue" instance_name="SliderTrimOrTurn" is_generic="false"></mutation>
+                            <value name="VALUE"><block type="math_number"><field name="NUM">50</field></block></value>
+                            <next>
+                              <block type="component_set_property">
+                                <mutation component_type="Slider" property_name="ThumbPosition" instance_name="SliderTrimOrTurn" is_generic="false"></mutation>
+                                <value name="VALUE"><block type="math_number"><field name="NUM">0</field></block></value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <statement name="ELSE">
+              <block type="component_set_property">
+                <mutation component_type="Label" property_name="Text" instance_name="LabelTitulo" is_generic="false"></mutation>
+                <value name="VALUE"><block type="text"><field name="TEXT">SISYPHUS</field></block></value>
+                <next>
+                  <block type="component_set_property">
+                    <mutation component_type="Label" property_name="Text" instance_name="LabelTrimOrTurn" is_generic="false"></mutation>
+                    <value name="VALUE"><block type="text"><field name="TEXT">SPEED TURN: 150</field></block></value>
+                    <next>
+                      <block type="component_set_property">
+                        <mutation component_type="Slider" property_name="MinValue" instance_name="SliderTrimOrTurn" is_generic="false"></mutation>
+                        <value name="VALUE"><block type="math_number"><field name="NUM">0</field></block></value>
+                        <next>
+                          <block type="component_set_property">
+                            <mutation component_type="Slider" property_name="MaxValue" instance_name="SliderTrimOrTurn" is_generic="false"></mutation>
+                            <value name="VALUE"><block type="math_number"><field name="NUM">255</field></block></value>
+                            <next>
+                              <block type="component_set_property">
+                                <mutation component_type="Slider" property_name="ThumbPosition" instance_name="SliderTrimOrTurn" is_generic="false"></mutation>
+                                <value name="VALUE"><block type="math_number"><field name="NUM">150</field></block></value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+
+  <!-- ListPicker BeforePicking: load paired devices -->
+  <block type="component_event" x="300" y="400">
+    <mutation component_type="ListPicker" instance_name="ListPickerBT" event_name="BeforePicking"></mutation>
+    <statement name="DO">
+      <block type="component_set_property">
+        <mutation component_type="ListPicker" property_name="Elements" instance_name="ListPickerBT" is_generic="false"></mutation>
+        <value name="VALUE">
+          <block type="component_get_property">
+            <mutation component_type="BluetoothClient" property_name="AddressesAndNames" instance_name="BluetoothClient1" is_generic="false"></mutation>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+
+  <!-- ListPicker AfterPicking: connect -->
+  <block type="component_event" x="300" y="500">
+    <mutation component_type="ListPicker" instance_name="ListPickerBT" event_name="AfterPicking"></mutation>
+    <statement name="DO">
+      <block type="controls_if" inline="false">
+        <value name="IF0">
+          <block type="component_method" inline="false">
+            <mutation component_type="BluetoothClient" method_name="Connect" instance_name="BluetoothClient1" is_generic="false"></mutation>
+            <value name="ARG0">
+              <block type="component_get_property">
+                <mutation component_type="ListPicker" property_name="Selection" instance_name="ListPickerBT" is_generic="false"></mutation>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="component_set_property">
+            <mutation component_type="Label" property_name="Text" instance_name="LabelStatus" is_generic="false"></mutation>
+            <value name="VALUE"><block type="text"><field name="TEXT">Conectado!</field></block></value>
+            <next>
+              <block type="component_set_property">
+                <mutation component_type="Label" property_name="TextColor" instance_name="LabelStatus" is_generic="false"></mutation>
+                <value name="VALUE"><block type="color_green"></block></value>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+
+  <!-- Canvas Dragged: joystick logic -->
+  <block type="component_event" x="700" y="0">
+    <mutation component_type="Canvas" instance_name="CanvasJoystick" event_name="Dragged">
+      <eventparam name="startX"></eventparam>
+      <eventparam name="startY"></eventparam>
+      <eventparam name="prevX"></eventparam>
+      <eventparam name="prevY"></eventparam>
+      <eventparam name="currentX"></eventparam>
+      <eventparam name="currentY"></eventparam>
+      <eventparam name="draggedAnySprite"></eventparam>
+    </mutation>
+    <statement name="DO">
+      <block type="local_declaration_statement" inline="false">
+        <mutation><localname name="dx"></localname><localname name="dy"></localname><localname name="dist"></localname><localname name="clampedX"></localname><localname name="clampedY"></localname><localname name="angulo"></localname><localname name="direcao"></localname></mutation>
+        <value name="DECL0">
+          <block type="math_subtract">
+            <value name="A"><block type="lexical_variable_get"><field name="VAR">currentX</field></block></value>
+            <value name="B"><block type="lexical_variable_get"><field name="VAR">global centerX</field></block></value>
+          </block>
+        </value>
+        <value name="DECL1">
+          <block type="math_subtract">
+            <value name="A"><block type="lexical_variable_get"><field name="VAR">currentY</field></block></value>
+            <value name="B"><block type="lexical_variable_get"><field name="VAR">global centerY</field></block></value>
+          </block>
+        </value>
+        <value name="DECL2">
+          <block type="math_single">
+            <field name="OP">ROOT</field>
+            <value name="NUM">
+              <block type="math_add">
+                <value name="A">
+                  <block type="math_multiply">
+                    <value name="A"><block type="lexical_variable_get"><field name="VAR">dx</field></block></value>
+                    <value name="B"><block type="lexical_variable_get"><field name="VAR">dx</field></block></value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="math_multiply">
+                    <value name="A"><block type="lexical_variable_get"><field name="VAR">dy</field></block></value>
+                    <value name="B"><block type="lexical_variable_get"><field name="VAR">dy</field></block></value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="DECL3"><block type="lexical_variable_get"><field name="VAR">currentX</field></block></value>
+        <value name="DECL4"><block type="lexical_variable_get"><field name="VAR">currentY</field></block></value>
+        <value name="DECL5"><block type="math_number"><field name="NUM">0</field></block></value>
+        <value name="DECL6"><block type="text"><field name="TEXT">stop</field></block></value>
+        <statement name="STACK">
+          <!-- Clamp if dist > 77.5 -->
+          <block type="controls_if" inline="false">
+            <value name="IF0">
+              <block type="math_compare">
+                <field name="OP">GT</field>
+                <value name="A"><block type="lexical_variable_get"><field name="VAR">dist</field></block></value>
+                <value name="B"><block type="math_number"><field name="NUM">77.5</field></block></value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="lexical_variable_set">
+                <field name="VAR">clampedX</field>
+                <value name="VALUE">
+                  <block type="math_add">
+                    <value name="A"><block type="lexical_variable_get"><field name="VAR">global centerX</field></block></value>
+                    <value name="B">
+                      <block type="math_divide">
+                        <value name="A">
+                          <block type="math_multiply">
+                            <value name="A"><block type="lexical_variable_get"><field name="VAR">dx</field></block></value>
+                            <value name="B"><block type="math_number"><field name="NUM">77.5</field></block></value>
+                          </block>
+                        </value>
+                        <value name="B"><block type="lexical_variable_get"><field name="VAR">dist</field></block></value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <next>
+                  <block type="lexical_variable_set">
+                    <field name="VAR">clampedY</field>
+                    <value name="VALUE">
+                      <block type="math_add">
+                        <value name="A"><block type="lexical_variable_get"><field name="VAR">global centerY</field></block></value>
+                        <value name="B">
+                          <block type="math_divide">
+                            <value name="A">
+                              <block type="math_multiply">
+                                <value name="A"><block type="lexical_variable_get"><field name="VAR">dy</field></block></value>
+                                <value name="B"><block type="math_number"><field name="NUM">77.5</field></block></value>
+                              </block>
+                            </value>
+                            <value name="B"><block type="lexical_variable_get"><field name="VAR">dist</field></block></value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <!-- Move ball -->
+              <block type="component_method" inline="false">
+                <mutation component_type="Ball" method_name="MoveTo" instance_name="BallKnob" is_generic="false"></mutation>
+                <value name="ARG0"><block type="lexical_variable_get"><field name="VAR">clampedX</field></block></value>
+                <value name="ARG1"><block type="lexical_variable_get"><field name="VAR">clampedY</field></block></value>
+                <next>
+                  <!-- Calculate angle: atan2(-dy, dx) * 180 / pi -->
+                  <block type="lexical_variable_set">
+                    <field name="VAR">angulo</field>
+                    <value name="VALUE">
+                      <block type="math_divide">
+                        <value name="A">
+                          <block type="math_multiply">
+                            <value name="A">
+                              <block type="math_atan2">
+                                <value name="Y">
+                                  <block type="math_multiply">
+                                    <value name="A"><block type="math_number"><field name="NUM">-1</field></block></value>
+                                    <value name="B"><block type="lexical_variable_get"><field name="VAR">dy</field></block></value>
+                                  </block>
+                                </value>
+                                <value name="X"><block type="lexical_variable_get"><field name="VAR">dx</field></block></value>
+                              </block>
+                            </value>
+                            <value name="B"><block type="math_number"><field name="NUM">180</field></block></value>
+                          </block>
+                        </value>
+                        <value name="B"><block type="math_number"><field name="NUM">3.14159265</field></block></value>
+                      </block>
+                    </value>
+                    <next>
+                      <!-- Determine direction -->
+                      <block type="controls_if" inline="false">
+                        <mutation elseif="3" else="1"></mutation>
+                        <value name="IF0">
+                          <block type="math_compare">
+                            <field name="OP">LT</field>
+                            <value name="A"><block type="lexical_variable_get"><field name="VAR">dist</field></block></value>
+                            <value name="B"><block type="math_number"><field name="NUM">20</field></block></value>
+                          </block>
+                        </value>
+                        <statement name="DO0">
+                          <block type="lexical_variable_set"><field name="VAR">direcao</field>
+                            <value name="VALUE"><block type="text"><field name="TEXT">stop</field></block></value>
+                          </block>
+                        </statement>
+                        <value name="IF1">
+                          <block type="logic_and">
+                            <value name="A">
+                              <block type="math_compare"><field name="OP">GT</field>
+                                <value name="A"><block type="lexical_variable_get"><field name="VAR">angulo</field></block></value>
+                                <value name="B"><block type="math_number"><field name="NUM">45</field></block></value>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_compare"><field name="OP">LTE</field>
+                                <value name="A"><block type="lexical_variable_get"><field name="VAR">angulo</field></block></value>
+                                <value name="B"><block type="math_number"><field name="NUM">135</field></block></value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO1">
+                          <block type="lexical_variable_set"><field name="VAR">direcao</field>
+                            <value name="VALUE"><block type="text"><field name="TEXT">forward</field></block></value>
+                          </block>
+                        </statement>
+                        <value name="IF2">
+                          <block type="logic_and">
+                            <value name="A">
+                              <block type="math_compare"><field name="OP">GT</field>
+                                <value name="A"><block type="lexical_variable_get"><field name="VAR">angulo</field></block></value>
+                                <value name="B"><block type="math_number"><field name="NUM">-135</field></block></value>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_compare"><field name="OP">LTE</field>
+                                <value name="A"><block type="lexical_variable_get"><field name="VAR">angulo</field></block></value>
+                                <value name="B"><block type="math_number"><field name="NUM">-45</field></block></value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO2">
+                          <block type="lexical_variable_set"><field name="VAR">direcao</field>
+                            <value name="VALUE"><block type="text"><field name="TEXT">backward</field></block></value>
+                          </block>
+                        </statement>
+                        <value name="IF3">
+                          <block type="logic_and">
+                            <value name="A">
+                              <block type="math_compare"><field name="OP">GT</field>
+                                <value name="A"><block type="lexical_variable_get"><field name="VAR">angulo</field></block></value>
+                                <value name="B"><block type="math_number"><field name="NUM">-45</field></block></value>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_compare"><field name="OP">LTE</field>
+                                <value name="A"><block type="lexical_variable_get"><field name="VAR">angulo</field></block></value>
+                                <value name="B"><block type="math_number"><field name="NUM">45</field></block></value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO3">
+                          <block type="lexical_variable_set"><field name="VAR">direcao</field>
+                            <value name="VALUE"><block type="text"><field name="TEXT">right</field></block></value>
+                          </block>
+                        </statement>
+                        <statement name="ELSE">
+                          <block type="lexical_variable_set"><field name="VAR">direcao</field>
+                            <value name="VALUE"><block type="text"><field name="TEXT">left</field></block></value>
+                          </block>
+                        </statement>
+                        <next>
+                          <!-- Send if direction changed -->
+                          <block type="controls_if" inline="false">
+                            <value name="IF0">
+                              <block type="logic_negate">
+                                <value name="BOOL">
+                                  <block type="logic_compare">
+                                    <field name="OP">EQ</field>
+                                    <value name="A"><block type="lexical_variable_get"><field name="VAR">direcao</field></block></value>
+                                    <value name="B"><block type="lexical_variable_get"><field name="VAR">global ultimaDirecao</field></block></value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <statement name="DO0">
+                              <block type="lexical_variable_set">
+                                <field name="VAR">global ultimaDirecao</field>
+                                <value name="VALUE"><block type="lexical_variable_get"><field name="VAR">direcao</field></block></value>
+                                <next>
+                                  <block type="controls_if" inline="false">
+                                    <value name="IF0">
+                                      <block type="component_get_property">
+                                        <mutation component_type="BluetoothClient" property_name="IsConnected" instance_name="BluetoothClient1" is_generic="false"></mutation>
+                                      </block>
+                                    </value>
+                                    <statement name="DO0">
+                                      <block type="component_method" inline="false">
+                                        <mutation component_type="BluetoothClient" method_name="SendText" instance_name="BluetoothClient1" is_generic="false"></mutation>
+                                        <value name="ARG0">
+                                          <block type="text_join">
+                                            <mutation items="2"></mutation>
+                                            <value name="ADD0"><block type="lexical_variable_get"><field name="VAR">direcao</field></block></value>
+                                            <value name="ADD1"><block type="text"><field name="TEXT">\n</field></block></value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </statement>
+                                  </block>
+                                  <next>
+                                    <block type="component_set_property">
+                                      <mutation component_type="Label" property_name="Text" instance_name="LabelDirecao" is_generic="false"></mutation>
+                                      <value name="VALUE"><block type="lexical_variable_get"><field name="VAR">direcao</field></block></value>
+                                    </block>
+                                    <next>
+                                      <block type="component_set_property">
+                                        <mutation component_type="Label" property_name="Text" instance_name="LabelComando" is_generic="false"></mutation>
+                                        <value name="VALUE">
+                                          <block type="text_join">
+                                            <mutation items="2"></mutation>
+                                            <value name="ADD0"><block type="text"><field name="TEXT">Enviado: </field></block></value>
+                                            <value name="ADD1"><block type="lexical_variable_get"><field name="VAR">direcao</field></block></value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </next>
+                                </next>
+                              </block>
+                            </statement>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+
+  <!-- Canvas TouchUp: reset knob -->
+  <block type="component_event" x="700" y="600">
+    <mutation component_type="Canvas" instance_name="CanvasJoystick" event_name="TouchUp">
+      <eventparam name="x"></eventparam>
+      <eventparam name="y"></eventparam>
+    </mutation>
+    <statement name="DO">
+      <block type="component_method" inline="false">
+        <mutation component_type="Ball" method_name="MoveTo" instance_name="BallKnob" is_generic="false"></mutation>
+        <value name="ARG0"><block type="lexical_variable_get"><field name="VAR">global centerX</field></block></value>
+        <value name="ARG1"><block type="lexical_variable_get"><field name="VAR">global centerY</field></block></value>
+        <next>
+          <block type="lexical_variable_set">
+            <field name="VAR">global ultimaDirecao</field>
+            <value name="VALUE"><block type="text"><field name="TEXT">stop</field></block></value>
+            <next>
+              <block type="controls_if" inline="false">
+                <value name="IF0">
+                  <block type="component_get_property">
+                    <mutation component_type="BluetoothClient" property_name="IsConnected" instance_name="BluetoothClient1" is_generic="false"></mutation>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="component_method" inline="false">
+                    <mutation component_type="BluetoothClient" method_name="SendText" instance_name="BluetoothClient1" is_generic="false"></mutation>
+                    <value name="ARG0"><block type="text"><field name="TEXT">stop\n</field></block></value>
+                  </block>
+                </statement>
+              </block>
+              <next>
+                <block type="component_set_property">
+                  <mutation component_type="Label" property_name="Text" instance_name="LabelDirecao" is_generic="false"></mutation>
+                  <value name="VALUE"><block type="text"><field name="TEXT">--</field></block></value>
+                  <next>
+                    <block type="component_set_property">
+                      <mutation component_type="Label" property_name="Text" instance_name="LabelComando" is_generic="false"></mutation>
+                      <value name="VALUE"><block type="text"><field name="TEXT">Enviado: stop</field></block></value>
+                    </block>
+                  </next>
+                </block>
+              </next>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+
+  <!-- SliderSpeed PositionChanged -->
+  <block type="component_event" x="1100" y="0">
+    <mutation component_type="Slider" instance_name="SliderSpeed" event_name="PositionChanged">
+      <eventparam name="thumbPosition"></eventparam>
+    </mutation>
+    <statement name="DO">
+      <block type="local_declaration_statement" inline="false">
+        <mutation><localname name="val"></localname></mutation>
+        <value name="DECL0">
+          <block type="math_round">
+            <value name="NUM"><block type="lexical_variable_get"><field name="VAR">thumbPosition</field></block></value>
+          </block>
+        </value>
+        <statement name="STACK">
+          <block type="component_set_property">
+            <mutation component_type="Label" property_name="Text" instance_name="LabelSpeed" is_generic="false"></mutation>
+            <value name="VALUE">
+              <block type="text_join">
+                <mutation items="2"></mutation>
+                <value name="ADD0"><block type="text"><field name="TEXT">VELOCIDADE: </field></block></value>
+                <value name="ADD1"><block type="lexical_variable_get"><field name="VAR">val</field></block></value>
+              </block>
+            </value>
+            <next>
+              <block type="controls_if" inline="false">
+                <value name="IF0">
+                  <block type="component_get_property">
+                    <mutation component_type="BluetoothClient" property_name="IsConnected" instance_name="BluetoothClient1" is_generic="false"></mutation>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="component_method" inline="false">
+                    <mutation component_type="BluetoothClient" method_name="SendText" instance_name="BluetoothClient1" is_generic="false"></mutation>
+                    <value name="ARG0">
+                      <block type="text_join">
+                        <mutation items="3"></mutation>
+                        <value name="ADD0"><block type="text"><field name="TEXT">speed:</field></block></value>
+                        <value name="ADD1"><block type="lexical_variable_get"><field name="VAR">val</field></block></value>
+                        <value name="ADD2"><block type="text"><field name="TEXT">\n</field></block></value>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+
+  <!-- SliderTrimOrTurn PositionChanged -->
+  <block type="component_event" x="1100" y="300">
+    <mutation component_type="Slider" instance_name="SliderTrimOrTurn" event_name="PositionChanged">
+      <eventparam name="thumbPosition"></eventparam>
+    </mutation>
+    <statement name="DO">
+      <block type="local_declaration_statement" inline="false">
+        <mutation><localname name="val"></localname></mutation>
+        <value name="DECL0">
+          <block type="math_round">
+            <value name="NUM"><block type="lexical_variable_get"><field name="VAR">thumbPosition</field></block></value>
+          </block>
+        </value>
+        <statement name="STACK">
+          <block type="controls_if" inline="false">
+            <mutation elseif="0" else="1"></mutation>
+            <value name="IF0">
+              <block type="logic_compare">
+                <field name="OP">EQ</field>
+                <value name="A"><block type="lexical_variable_get"><field name="VAR">global tipoCarrinho</field></block></value>
+                <value name="B"><block type="text"><field name="TEXT">vector</field></block></value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="component_set_property">
+                <mutation component_type="Label" property_name="Text" instance_name="LabelTrimOrTurn" is_generic="false"></mutation>
+                <value name="VALUE">
+                  <block type="text_join">
+                    <mutation items="2"></mutation>
+                    <value name="ADD0"><block type="text"><field name="TEXT">TRIM: </field></block></value>
+                    <value name="ADD1"><block type="lexical_variable_get"><field name="VAR">val</field></block></value>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_if" inline="false">
+                    <value name="IF0">
+                      <block type="component_get_property">
+                        <mutation component_type="BluetoothClient" property_name="IsConnected" instance_name="BluetoothClient1" is_generic="false"></mutation>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="component_method" inline="false">
+                        <mutation component_type="BluetoothClient" method_name="SendText" instance_name="BluetoothClient1" is_generic="false"></mutation>
+                        <value name="ARG0">
+                          <block type="text_join">
+                            <mutation items="3"></mutation>
+                            <value name="ADD0"><block type="text"><field name="TEXT">trim:</field></block></value>
+                            <value name="ADD1"><block type="lexical_variable_get"><field name="VAR">val</field></block></value>
+                            <value name="ADD2"><block type="text"><field name="TEXT">\n</field></block></value>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <statement name="ELSE">
+              <block type="component_set_property">
+                <mutation component_type="Label" property_name="Text" instance_name="LabelTrimOrTurn" is_generic="false"></mutation>
+                <value name="VALUE">
+                  <block type="text_join">
+                    <mutation items="2"></mutation>
+                    <value name="ADD0"><block type="text"><field name="TEXT">SPEED TURN: </field></block></value>
+                    <value name="ADD1"><block type="lexical_variable_get"><field name="VAR">val</field></block></value>
+                  </block>
+                </value>
+                <next>
+                  <block type="controls_if" inline="false">
+                    <value name="IF0">
+                      <block type="component_get_property">
+                        <mutation component_type="BluetoothClient" property_name="IsConnected" instance_name="BluetoothClient1" is_generic="false"></mutation>
+                      </block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="component_method" inline="false">
+                        <mutation component_type="BluetoothClient" method_name="SendText" instance_name="BluetoothClient1" is_generic="false"></mutation>
+                        <value name="ARG0">
+                          <block type="text_join">
+                            <mutation items="3"></mutation>
+                            <value name="ADD0"><block type="text"><field name="TEXT">turnspeed:</field></block></value>
+                            <value name="ADD1"><block type="lexical_variable_get"><field name="VAR">val</field></block></value>
+                            <value name="ADD2"><block type="text"><field name="TEXT">\n</field></block></value>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+
+  <!-- Clock Timer: check BT connection status -->
+  <block type="component_event" x="1100" y="700">
+    <mutation component_type="Clock" instance_name="Clock1" event_name="Timer"></mutation>
+    <statement name="DO">
+      <block type="controls_if" inline="false">
+        <mutation elseif="0" else="1"></mutation>
+        <value name="IF0">
+          <block type="component_get_property">
+            <mutation component_type="BluetoothClient" property_name="IsConnected" instance_name="BluetoothClient1" is_generic="false"></mutation>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="component_set_property">
+            <mutation component_type="Label" property_name="TextColor" instance_name="LabelStatus" is_generic="false"></mutation>
+            <value name="VALUE"><block type="color_green"></block></value>
+            <next>
+              <block type="component_set_property">
+                <mutation component_type="Label" property_name="Text" instance_name="LabelStatus" is_generic="false"></mutation>
+                <value name="VALUE"><block type="text"><field name="TEXT">Conectado!</field></block></value>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="component_set_property">
+            <mutation component_type="Label" property_name="TextColor" instance_name="LabelStatus" is_generic="false"></mutation>
+            <value name="VALUE"><block type="color_red"></block></value>
+            <next>
+              <block type="component_set_property">
+                <mutation component_type="Label" property_name="Text" instance_name="LabelStatus" is_generic="false"></mutation>
+                <value name="VALUE"><block type="text"><field name="TEXT">Desconectado</field></block></value>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+</xml>
