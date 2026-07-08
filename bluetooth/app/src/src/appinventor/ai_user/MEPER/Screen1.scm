@@ -1,6 +1,6 @@
 #|
 $JSON
-{"authURL":[],"YaVersion":"223","Source":"Form","Properties":{"$Name":"Screen1","$Type":"Form","$Version":"27","AppName":"MEPER","BackgroundColor":"&HFF1B3C6E","ScreenOrientation":"portrait","Sizing":"Responsive","Theme":"DeviceDefault","Title":"MEPER","TitleVisible":"False","$Components":[
+{"authURL":[],"YaVersion":"233","Source":"Form","Properties":{"$Name":"Screen1","$Type":"Form","$Version":"31","AppName":"MEPER","BackgroundColor":"&HFF1B3C6E","DefaultFileScope":"App","ScreenOrientation":"portrait","Sizing":"Responsive","Theme":"AppTheme.Light.DarkActionBar","Title":"MEPER","TitleVisible":"False","$Components":[
 {"$Name":"VerticalArrangement1","$Type":"VerticalArrangement","$Version":"4","AlignHorizontal":"3","AlignVertical":"2","BackgroundColor":"&HFF1B3C6E","Height":"-2","Width":"-2","$Components":[
 {"$Name":"Space1","$Type":"Label","$Version":"5","FontSize":"14","Height":"20","Text":"","Width":"-2"},
 {"$Name":"LabelLogo","$Type":"Label","$Version":"5","FontBold":"True","FontSize":"36","Text":"MEPER","TextColor":"&HFFFFFFFF","Width":"-2","TextAlignment":"1"},
@@ -24,6 +24,6 @@ $JSON
 {"$Name":"Space5","$Type":"Label","$Version":"5","FontSize":"10","Height":"20","Text":"","Width":"-2"},
 {"$Name":"LabelFooter","$Type":"Label","$Version":"5","FontSize":"10","Text":"Construa robos reais. Controle. Compita.","TextColor":"&H66FFFFFF","Width":"-2","TextAlignment":"1"}
 ]},
-{"$Name":"TinyDB1","$Type":"TinyDB","$Version":"2"}
+{"$Name":"TinyDB1","$Type":"TinyDB","$Version":"3"}
 ]}}
 |#
